@@ -34,10 +34,12 @@ ctrluser.delete = async (req, res) => {
   res.json({ status: true });
 };
 ctrluser.search = async (req, res ) => {
+  console.log(req.body.user)
   const user = await User.find( { user : { $regex: ".*" + req.body.user + ".*" } })
   res.json(user)
 }
 ctrluser.active = async (req, res) => {
+  console.log(req.body)
   const { _id, status } = req.body;
   await User.findOneAndUpdate(
     { _id: _id },
@@ -47,4 +49,9 @@ ctrluser.active = async (req, res) => {
   );
   res.json({ status: true });
 };
+ctrluser.searchget = async (req, res ) => {
+  console.log(req.params.user)
+  const user = await User.find( { user : { $regex: ".*" + req.params.user + ".*" } })
+  res.json(user)
+}
 module.exports = ctrluser;
